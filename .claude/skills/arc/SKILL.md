@@ -87,7 +87,7 @@ Deliberately surface the contrarian option. Typical axes here: rendering
 last-write-wins), what is persisted vs ephemeral (presence, cursors).
 **Output:** 2–4 candidate directions with trade-offs; one chosen with a
 reason; concrete references (files, papers, libraries). A choice that's hard
-to reverse becomes an ADR in `docs/adr/`.
+to reverse becomes an ADR in `docs/adr/` (`/decision new`).
 
 ### 3. Prep — foundations & boundaries
 Skeleton, not content. Whatever applies of:
@@ -131,7 +131,7 @@ Read the phase files in canonical order (`/arc show`). Compare shipped work
 against ideate + brainstorm decisions.
 - Where did we follow the plan?
 - Where did we divert, and was the divert justified in `implement.md`?
-- What did we discover that belongs in a rule (`CLAUDE.md`) or an ADR?
+- What did we discover that belongs in a rule (`/rules new`) or an ADR (`/decision new`)?
 - What did we punt? → new backlog items via `/backlog add`.
 - If linked to a backlog id: does the work clear every gate in
   `docs/definition-of-done.md` for it, universal gates included? An unmet gate
