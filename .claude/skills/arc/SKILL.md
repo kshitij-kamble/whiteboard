@@ -47,6 +47,26 @@ Entering a phase: replace that file's `_(not yet entered)_` with
 `_Entered YYYY-MM-DD._`, and update `status:` + `updated:` in `index.md`.
 Then `/state refresh` (the Stop hook also does this at the end of the turn).
 
+## GitHub Issues
+
+Every arc reports to one issue (mirror rules and `gh` usage:
+`.claude/skills/backlog/SKILL.md` → *GitHub Issues mirror*).
+
+- **Which issue:** with a backlog id, the item's `issue:` in `docs/backlog.md`
+  (add the `arc` label to it). Without one, `/arc start` creates an issue
+  (title = topic, label `arc`, body = the problem statement) and stores its
+  number as `issue: N` in `index.md` — no `#`, the frontmatter parser treats
+  `#` as a comment.
+- **On each phase entered:** `gh issue comment N` with
+  `**<Phase>** entered — <1–3 line summary of the previous phase's output>`.
+  Keep it a summary; the phase files hold the detail.
+- **On reconcile done:** comment with the reconcile summary. For a backlog-linked
+  arc, closing waits for `/backlog done`; an arc-only issue closes here
+  (`--reason completed`).
+
+A failed `gh` call never blocks a phase change — note it in one line and
+post the missed comment next time.
+
 Never auto-advance phases. When one feels done, suggest the next in one short
 sentence — the user drives the transition.
 
@@ -130,6 +150,7 @@ topic: <slug>
 started: YYYY-MM-DD
 updated: YYYY-MM-DD
 backlog: b-YYYYMMDD-NNN   # empty if none
+issue: N                  # only for arcs without a backlog id
 status: ideate   # ideate | brainstorm | prep | align | implement | reconcile | done
 ---
 

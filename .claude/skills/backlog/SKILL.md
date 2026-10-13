@@ -18,6 +18,7 @@ hand-editing the file is still allowed and expected.
 | `/backlog show <id-or-slug>`      | Print the full item, plus its AC and DoD sections.             |
 | `/backlog done <id>`              | Check the DoD gates (below), flip to `done`, add a one-line outcome note. |
 | `/backlog drop <id> <reason>`     | Flip to `dropped` with the reason inline.                      |
+| `/backlog sync`                   | Create a GitHub issue for every item missing `issue:`, and close issues of `done`/`dropped` items that are still open. |
 
 To flip status to `in-progress`, edit the item directly — that's what
 `/arc start … from <id>` does, and it's a one-field change.
@@ -69,6 +70,29 @@ Before flipping to `done`, read the item's section in
 file. If any gate is unmet, list it and stop — don't flip. If the item has a
 linked arc, its `reconcile.md` should be filled in first.
 
+## GitHub Issues mirror
+
+`docs/backlog.md` stays the source of truth; every item is mirrored as an issue
+on the `origin` repo (public — write nothing secret into issues). Run `gh` from
+the project root so it targets that repo; if `gh` isn't on PATH, use
+`"C:\Program Files\GitHub CLI\gh.exe"`. Labels match tags one-to-one
+(`feature`, `bug`, `tech-debt`, `spike`, `question`).
+
+| Event | GitHub side |
+|---|---|
+| `add` (after the files are written) | `gh issue create --title "<title>" --label <tag> --body-file <tmp>`. Body: description, then the numbered AC, then `Backlog id: <id>`. Write the returned number as `- **issue:** #N` on the item. |
+| flipped to `in-progress` | `gh issue comment N --body "In progress — arc: docs/phases/<folder>/"` |
+| `done` | `gh issue close N --reason completed --comment "Done — <outcome>"` |
+| `drop` | `gh issue close N --reason "not planned" --comment "Dropped — <reason>"` |
+
+Write the body to a file in the scratchpad (not inline) so quotes and newlines
+survive. If a `gh` call fails (offline, not logged in), still write the local
+change, say so in one line, and leave `issue:` empty — `/backlog sync` catches
+it up later. Never close an issue whose item isn't `done`/`dropped` locally.
+
+Commits for an item reference its issue (`… (#N)`); the PR that finishes it
+says `Closes #N`.
+
 ## Suggest-on-keyword (passive mode)
 
 When NOT invoked via `/backlog`, watch for phrases that smell like backlog
@@ -92,6 +116,7 @@ the same turn.
 - **status:** open
 - **created:** YYYY-MM-DD
 - **linked-phase:**
+- **issue:** #N
 - **title:** <readable title>
 
 <description>
@@ -104,5 +129,6 @@ backlog entry. `title:` is optional; the slug is the title when it's absent.
 - `linked-phase:` holds the arc folder name (`YYYY-MM-DD-<topic>`), written by
   `/arc start … from <id>`. A feature split into slices lists every slice arc
   under a `Slices:` section in its body instead.
+- `issue:` holds the mirrored GitHub issue number (see *GitHub Issues mirror*).
 - A drop reason goes **inline on the status line**: `- **status:** dropped — <reason>`.
 - A done note goes **inline on the status line**: `- **status:** done — <outcome>`.

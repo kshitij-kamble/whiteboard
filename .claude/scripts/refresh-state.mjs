@@ -39,7 +39,7 @@ function parseBacklog() {
     items.push({
       slug: m[1], id: m[2], tag: field('tag'), title: field('title') || m[1],
       status: statusLine.split(/\s/)[0] || 'open', statusNote: statusLine.split(' — ').slice(1).join(' — '),
-      linked: field('linked-phase'),
+      linked: field('linked-phase'), issue: field('issue'),
     });
   });
   return items;
@@ -92,7 +92,7 @@ function render() {
 
   const counts = ['open', 'in-progress', 'done', 'dropped'].map((s) => `${s}: ${by(s).length}`).join(' · ');
   out.push('## Backlog', '', backlog.length ? counts : '_Empty._', '');
-  const line = (b) => `- \`${b.id}\` **${b.title}** (${b.tag})${b.linked ? ` → ${b.linked}` : ''}`;
+  const line = (b) => `- \`${b.id}\` **${b.title}** (${b.tag})${b.issue ? ` ${b.issue}` : ''}${b.linked ? ` → ${b.linked}` : ''}`;
   if (by('in-progress').length) out.push('**In progress**', '', ...by('in-progress').map(line), '');
   if (by('open').length) out.push('**Open**', '', ...by('open').map(line), '');
 
