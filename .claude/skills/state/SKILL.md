@@ -57,9 +57,8 @@ have to be logged into `docs/activity.md` by hand or via `/state log`.
 
 ## ADR format
 
-`docs/adr/NNNN-<slug>.md`, numbered from `0001`. First heading is the title;
-a `Status: proposed | accepted | superseded` line near the top. Sections:
-Context, Decision, Consequences. Template: `docs/adr/0000-template.md`.
+Owned by `/decision` (`.claude/skills/decision/SKILL.md`). This script only
+needs the first `# ` heading (title) and the `Status:` line.
 
 **Never hand-edit STATE.md.** If it's wrong, the fix is in the source
 (backlog status, phase `index.md` status, missing activity entry) — then

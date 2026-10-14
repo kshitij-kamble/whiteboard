@@ -1,8 +1,9 @@
 # NNNN. <Decision title>
 
-Status: proposed
-
-_Date: YYYY-MM-DD_
+- Status: proposed
+- Date: YYYY-MM-DD
+- Supersedes: —
+- Superseded-by: —
 
 ## Context
 
