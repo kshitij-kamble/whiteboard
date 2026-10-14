@@ -3,9 +3,13 @@
 A collaborative, real-time whiteboard. Multiple people edit the same board and
 see each other's changes live.
 
-**Stack: not chosen yet.** Rendering, sync model and framework are open
-decisions. Record each as an ADR (`/decision new`) before building on it, then
-fill in the sections below.
+**The goal is learning.** The user writes core logic. See the `must` rules in
+`docs/rules/` and the guard in `.claude/scripts/guard-deps.mjs`.
+
+**Stack:** TypeScript + Vite, no UI framework (ADR 0001). Canvas 2D rendering
+(ADR 0002). Node 24 + `ws` sync server (ADR 0003). Folders: `client/`,
+`server/`, `shared/`. **Sync model and storage are still open.** They get
+decided after the naive sync breaks (`docs/rules/layers-in-order.md`).
 
 ## Start of session
 
