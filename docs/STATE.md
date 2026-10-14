@@ -12,8 +12,13 @@ _Empty._
 
 ## Recent decisions
 
-_None._
+- [0003. Run the sync server on Node with `ws`](adr/0003-node-ws-server.md) — accepted
+- [0002. Render the board with Canvas 2D](adr/0002-canvas-2d-rendering.md) — accepted
+- [0001. TypeScript and Vite, no UI framework](adr/0001-typescript-vite-no-ui-framework.md) — accepted
 
 ## Recent activity
 
+- 2026-10-15 — ADR 0003 accepted: Run the sync server on Node with ws
+- 2026-10-15 — ADR 0002 accepted: Render the board with Canvas 2D
+- 2026-10-15 — ADR 0001 accepted: TypeScript and Vite, no UI framework
 - 2026-10-13 — Project workflow set up: /arc, /backlog, /state skills adapted from a previous project.
